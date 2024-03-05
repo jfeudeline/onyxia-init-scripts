@@ -1,10 +1,10 @@
 #!/bin/bash
 
-apt-get update
-apt-get install gcc 
-apt-get install build-essential 
-apt-get install curl
-apt-get installunzip
-apt-get install bubblewrap
+sudo apt-get update
+sudo apt-get install gcc 
+sudo apt-get install build-essential 
+sudo apt-get install curl
+sudo apt-get installunzip
+sudo apt-get install bubblewrap
 
-bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+sudo bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
