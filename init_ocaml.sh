@@ -14,8 +14,8 @@ wget -O init_originel.sh ${PERSONAL_INIT_SCRIPT}
 
 sudo -s
 apt-get update
-apt-get -y install bubblewrap
-apt-get -y install opam
+apt-get install -y bubblewrap
+apt-get install -y opam
 eval $(opam env)
 opam init --disable-sandboxing -y
 opam install -y ocaml-lsp-server odoc ocamlformat utop
