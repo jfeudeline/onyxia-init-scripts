@@ -12,9 +12,9 @@ env | sort > env_init.out
 wget -O init_originel.sh ${PERSONAL_INIT_SCRIPT}
 
 
-apt-get update
-apt-get install -y bubblewrap
-apt-get install -y opam
+sudo apt-get update
+sudo apt-get install -y bubblewrap
+sudo apt-get install -y opam
 eval $(opam env)
 opam init --disable-sandboxing -y
 opam install -y ocaml-lsp-server odoc ocamlformat utop
