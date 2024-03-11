@@ -12,7 +12,6 @@ env | sort > env_init.out
 wget -O init_originel.sh ${PERSONAL_INIT_SCRIPT}
 
 
-sudo -s
 apt-get update
 apt-get install -y bubblewrap
 apt-get install -y opam
