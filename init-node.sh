@@ -13,7 +13,7 @@ env | sort > env_init.out
 # Et pour le script d'initialisation utilisé
 wget -O init_originel.sh ${PERSONAL_INIT_SCRIPT}
 
-
+sudo -s
 apt-get update
 apt-get install -y ca-certificates curl gnupg
 mkdir -p /etc/apt/keyrings
