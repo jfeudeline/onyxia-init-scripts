@@ -24,5 +24,5 @@ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.co
 
 apt-get update
 apt-get install nodejs -y
-node install -g pnpm
+npm install -g pnpm
 
