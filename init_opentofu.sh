@@ -1,30 +1,28 @@
-#!/bin/sh
+#!/bin/bash
 
-# This init script install various useful VScode extensions
-# NB : only extensions from the Open VSX Registry (https://open-vsx.org/) can be installed on code-server
-# Expected parameters : None
+# Chargement des clés SSH
 
-# CONFORT EXTENSIONS -----------------
+mc cp $PATH_TO_SSHKEY/id_ed25519.pub ~/.ssh/id_ed25519.pub
+mc cp $PATH_TO_SSHKEY/id_ed25519 ~/.ssh/id_ed25519
 
-# Colorizes the indentation in front of text
-code-server --install-extension oderwat.indent-rainbow
-# Extensive markdown integration
-code-server --install-extension yzhang.markdown-all-in-one
-# Integrates Excalidraw (software for sketching diagrams)
-code-server --install-extension pomdtr.excalidraw-editor
+# Installation de Terraform
 
-# COPILOT ----------------------------
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 
-# Install Copilot (Microsoft's AI-assisted code writing tool)
-copilotVersion="1.234.0"
-copilotChatVersion="0.20.0" # This version is not compatible with VSCode server 1.92.2
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 
-wget --retry-on-http-error=429 https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/${copilotVersion}/vspackage -O copilot.vsix.gz
-wget --retry-on-http-error=429 https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot-chat/${copilotChatVersion}/vspackage -O copilot-chat.vsix.gz
+gpg --no-default-keyring \
+--keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+--fingerprint
 
-gzip -d copilot.vsix.gz 
-gzip -d copilot-chat.vsix.gz 
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
-code-server --install-extension copilot.vsix
-code-server --install-extension copilot-chat.vsix
-rm copilot.vsix copilot-chat.vsix
+sudo apt update
+sudo apt-get install terraform
+
+# Installation de l'extension Terraform dans VSCode
+
+code-server --install-extension hashicorp.terraform
+
